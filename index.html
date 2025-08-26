@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun! | Netflix Style</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="netflix-loader">
+            <div class="loader-icon">N</div>
+            <p>Tunggu yaa...</p>
+        </div>
+    </div>
+
+    <!-- Hero Section dengan Netflix-style -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="netflix-top">
+            <span class="netflix-logo">N</span>
+            <span class="birthday-text">HAPPY BIRTHDAY</span>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="animated-title">Selamat Ulang Tahun!</h1>
+            <p class="hero-subtitle">Fania Putri Azzahra</p>
+            
+            <div class="hero-buttons">
+                <button class="btn btn-secondary" id="infoBtn"><i class="fas fa-info-circle"></i> Pesan dari aku buat kamu</button>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- Content Sections -->
+    <main>
+        <!-- Profile Section -->
+        <section class="profile-section" id="profile">
+            <h2>Yang Ultah Ni!!</h2>
+            <div class="profile-container">
+                <div class="profile-image">
+                    <img src="https://i.pinimg.com/736x/ca/d6/50/cad65047031c05b58a189e626685a3e5.jpg" alt="Foto Ulang Tahun" class="profile-img">
+                    <div class="profile-overlay">
+                        <h3>Nama Anda</h3>
+                        <p>Ulang Tahun ke-XX</p>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <h3>Profil Fania</h3>
+                    <ul>
+                        <li><span>Tanggal Lahir:</span> DD/MM/YYYY</li>
+                        <li><span>Zodiak:</span> Zodiak Anda</li>
+                        <li><span>Hobi:</span> Hobi Anda</li>
+                        <li><span>Status:</span> Pacar Ilham </li>
+                    </ul>
+                    <button class="btn-trailer" id="wishBtn">coba pencet!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memories Section -->
+        <section class="memories-section">
+            <h2>Foto Foto Kamu Yang cantik</h2>
+            <div class="netflix-slider">
+                <div class="slider-container" id="memorySlider">
+                    <!-- Memory items will be added by JavaScript -->
+                </div>
+                <button class="slider-nav slider-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-nav slider-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- Messages Section -->
+        <section class="messages-section">
+            <h2>Pesan dari Orang lain</h2>
+            <div class="messages-container">
+                <!-- Messages will be added by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <h2>HAPPY BIRTHDAY!!!</h2>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Hari</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Jam</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Menit</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Detik</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Audio Player -->
+    <audio id="birthdaySong" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Selamat Ulang Tahun!</h2>
+            <p>Ngga kerasa kamu udah ultah lagi aja wkwwk, aku ngga mau banyak bilang sesuatu,yang pasti,</p>
+            <p>Semoga kamu terus panjang umur, dikasih sehat yaa, temenin aku terus jangan kemana mana.</p>
+            <p>Aku selalu butuh kamu, aku udah terbiasa apa apa sama kamu, jadi tolong temenin aku terus yaa.</p>
+            <p>Semoga kamu lulus tepat waktu dan dapet nilai terbaik yaa sayang.</p>
+            <p>Pokoknya aku bakal terus support kamu kalo itu positive.</p>
+            <p>Jangan lupa juga buat nabung, karna kamu udah semakin tumbuh dewasa, udah tua kauu wkwkw</p>
+            <p>Tetep jadi pacar aku yang super ngeselin, baik hati, dan tidak sombong yaa sayang</p>
+            <p>Aku sayang kamu kapanpun itu, I LOVE U IN EVERY UNIVERSE</p>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+    <script>
+        // Confetti animation
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        let W = window.innerWidth;
+        let H = window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
+        canvas.style.position = 'fixed';
+        canvas.style.top = 0;
+        canvas.style.left = 0;
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = 9999;
+
+        const confettiColors = ['#ff0a54','#ff477e','#ff7096','#ff85a1','#fbb1bd','#f7cad0','#b5ead7','#caffbf','#fdffb6','#ffd6a5'];
+        const confettiCount = 120;
+        const confetti = [];
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        for(let i=0; i<confettiCount; i++) {
+            confetti.push({
+                x: randomRange(0, W),
+                y: randomRange(-H, 0),
+                r: randomRange(6, 12),
+                d: randomRange(2, 8),
+                color: confettiColors[Math.floor(Math.random()*confettiColors.length)],
+                tilt: randomRange(-10, 10),
+                tiltAngle: randomRange(0, Math.PI*2),
+                tiltAngleIncrement: randomRange(0.01, 0.05)
+            });
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, W, H);
+            confetti.forEach(c => {
+                ctx.beginPath();
+                ctx.ellipse(c.x, c.y, c.r, c.r/2, c.tilt, 0, 2*Math.PI);
+                ctx.fillStyle = c.color;
+                ctx.fill();
+            });
+            updateConfetti();
+        }
+
+        function updateConfetti() {
+            confetti.forEach(c => {
+                c.y += c.d;
+                c.x += Math.sin(c.tiltAngle) * 2;
+                c.tiltAngle += c.tiltAngleIncrement;
+                if(c.y > H) {
+                    c.x = randomRange(0, W);
+                    c.y = randomRange(-20, 0);
+                }
+            });
+        }
+
+        function animateConfetti() {
+            drawConfetti();
+            requestAnimationFrame(animateConfetti);
+        }
+
+        window.addEventListener('resize', () => {
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.width = W;
+            canvas.height = H;
+        });
+
+        animateConfetti();
+    </script>
+
+    <!-- Footer -->
+    <footer class="netflix-footer">
+        <p>© Ilham ganteng yang buat</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
